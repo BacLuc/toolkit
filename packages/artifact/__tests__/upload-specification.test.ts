@@ -17,6 +17,7 @@ const goodItem2Path = path.join(root, 'folder-d', 'good-item2.txt')
 const goodItem3Path = path.join(root, 'folder-d', 'good-item3.txt')
 const goodItem4Path = path.join(root, 'folder-d', 'good-item4.txt')
 const goodItem5Path = path.join(root, 'good-item5.txt')
+const goodItem6Path = path.join(root, 'good-item6')
 const badItem1Path = path.join(
   root,
   'folder-a',
@@ -43,6 +44,7 @@ const artifactFilesToUpload = [
   goodItem3Path,
   goodItem4Path,
   goodItem5Path,
+  goodItem6Path,
   extraFileInFolderCPath,
   amazingFileInFolderHPath
 ]
@@ -81,6 +83,7 @@ describe('Search', () => {
     await fs.writeFile(goodItem3Path, 'good item3 file')
     await fs.writeFile(goodItem4Path, 'good item4 file')
     await fs.writeFile(goodItem5Path, 'good item5 file')
+    await fs.writeFile(goodItem6Path, 'good item6 file')
 
     await fs.writeFile(badItem1Path, 'bad item1 file')
     await fs.writeFile(badItem2Path, 'bad item2 file')
@@ -115,6 +118,7 @@ describe('Search', () => {
                   bad-item4.txt
                   bad-item5.txt
           good-item5.txt
+          good-item6
     */
   })
 
@@ -174,7 +178,7 @@ describe('Search', () => {
       root,
       artifactFilesToUpload
     )
-    expect(specifications.length).toEqual(7)
+    expect(specifications.length).toEqual(8)
 
     const absolutePaths = specifications.map(item => item.absoluteFilePath)
     expect(absolutePaths).toContain(goodItem1Path)
@@ -182,6 +186,7 @@ describe('Search', () => {
     expect(absolutePaths).toContain(goodItem3Path)
     expect(absolutePaths).toContain(goodItem4Path)
     expect(absolutePaths).toContain(goodItem5Path)
+    expect(absolutePaths).toContain(goodItem6Path)
     expect(absolutePaths).toContain(extraFileInFolderCPath)
     expect(absolutePaths).toContain(amazingFileInFolderHPath)
 
@@ -211,6 +216,10 @@ describe('Search', () => {
       } else if (specification.absoluteFilePath === goodItem5Path) {
         expect(specification.uploadFilePath).toEqual(
           path.join(artifactName, 'good-item5.txt')
+        )
+      } else if (specification.absoluteFilePath === goodItem6Path) {
+        expect(specification.uploadFilePath).toEqual(
+          path.join(artifactName, 'good-item6')
         )
       } else if (specification.absoluteFilePath === extraFileInFolderCPath) {
         expect(specification.uploadFilePath).toEqual(
@@ -241,7 +250,7 @@ describe('Search', () => {
       rootWithSlash,
       artifactFilesToUpload
     )
-    expect(specifications.length).toEqual(7)
+    expect(specifications.length).toEqual(8)
 
     const absolutePaths = specifications.map(item => item.absoluteFilePath)
     expect(absolutePaths).toContain(goodItem1Path)
@@ -249,6 +258,7 @@ describe('Search', () => {
     expect(absolutePaths).toContain(goodItem3Path)
     expect(absolutePaths).toContain(goodItem4Path)
     expect(absolutePaths).toContain(goodItem5Path)
+    expect(absolutePaths).toContain(goodItem6Path)
     expect(absolutePaths).toContain(extraFileInFolderCPath)
     expect(absolutePaths).toContain(amazingFileInFolderHPath)
 
@@ -278,6 +288,10 @@ describe('Search', () => {
       } else if (specification.absoluteFilePath === goodItem5Path) {
         expect(specification.uploadFilePath).toEqual(
           path.join(artifactName, 'good-item5.txt')
+        )
+      } else if (specification.absoluteFilePath === goodItem6Path) {
+        expect(specification.uploadFilePath).toEqual(
+          path.join(artifactName, 'good-item6')
         )
       } else if (specification.absoluteFilePath === extraFileInFolderCPath) {
         expect(specification.uploadFilePath).toEqual(
